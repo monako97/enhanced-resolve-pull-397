@@ -5,6 +5,7 @@ const programPath = process.cwd();
 class ResolverPlugin {
     constructor(){}
     apply(resolver) {
+        const target = resolver.ensureHook('resolved');
         const rPrev = `./${relative(programPath, 'src')}`;
         const rNext = `./${relative(programPath, 'patch')}`;
   
@@ -26,7 +27,7 @@ class ResolverPlugin {
                   __innerRequest: relativePath,
                 });
                 return resolver.doResolve(
-                  'resolved',
+                  target,
                   request,
                   `ResolverPlugin use patch`,
                   resolveContext,
